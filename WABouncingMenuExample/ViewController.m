@@ -7,9 +7,12 @@
 //
 
 #import "ViewController.h"
+#import "WABouncingView.h"
 
 @interface ViewController ()
-
+{
+    WABouncingView *bcView;
+}
 @end
 
 @implementation ViewController
@@ -17,11 +20,41 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    bcView = [[WABouncingView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 200, self.view.frame.size.width, 200)
+                                   circleMenuFrame:CGRectMake(self.view.frame.size.width - 75,
+                                                              200 - 75,
+                                                              50,
+                                                              50)];
+
+    [self.view addSubview:bcView];
+
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+    if(!bcView.isOpen){
+        [bcView animateOpen];
+    }else{
+        [bcView animateClose];
+    }
 }
 
 @end
