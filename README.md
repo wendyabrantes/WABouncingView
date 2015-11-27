@@ -1,4 +1,4 @@
 # WABouncingView
 
 Demo
-https://appetize.io/app/bhtr3ypufwf7x347fg2p5utcdr
+https://appetize.io/app/jm71kzpn42bmj80z4vtcnrthbm?device=iphone5s&scale=75&orientation=portrait&osVersion=9.1
