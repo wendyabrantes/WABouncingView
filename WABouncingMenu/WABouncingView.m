@@ -73,9 +73,9 @@
         rightControlPoint = [UIView new];
         bottomControlPoint = [UIView new];
 
+        //control point
         for(UIView *controlView in @[topControlPoint, leftControlPoint, rightControlPoint, bottomControlPoint] ){
             controlView.frame = CGRectMake(0, 0, 1, 1);
-//            controlView.backgroundColor = [UIColor blueColor];
             [self addSubview:controlView];
         }
         [self positionControlPoints];
@@ -118,14 +118,14 @@
     if(!self.isAnimating){
     displayLink.paused = true;
 
-
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
     animation.fromValue = (id)finalBezier.CGPath;
     animation.toValue = (id)circleBezier.CGPath;
     animation.duration = 0.3;
     animation.delegate = self;
     circleLayer.path = circleBezier.CGPath;
-    
+        
+    [circleLayer setValue:@"animateOut" forKey:@"animateOut"];
     [circleLayer addAnimation:animation forKey:@"animateOut"];
     
     self.isOpen = false;
@@ -205,30 +205,25 @@
     }
                      completion:^(BOOL finished) {
        
-                         [UIView animateWithDuration:1.0
+                         [UIView animateWithDuration:0.8
                                                delay:0.0
-                              usingSpringWithDamping:0.43
+                              usingSpringWithDamping:0.4
                                initialSpringVelocity:0.0
                                              options:UIViewAnimationOptionAllowAnimatedContent
                                           animations:^{
                                              [self positionControlPoints];
                                           }
                           completion:^(BOOL finished) {
+                              self.isAnimating = false;
                               [self stopUpdateLoop];
                           }];
-                         
-                         
-                         
     }];
-    
-
 }
 
 -(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
-    self.isAnimating = false;
-    if(flag){
-
+    if(flag && !self.isOpen){
+        self.isAnimating = false;
     }
 }
 
