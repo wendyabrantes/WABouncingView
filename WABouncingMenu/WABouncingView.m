@@ -7,9 +7,11 @@
 //
 
 #import "WABouncingView.h"
-#import "Pop.h"
+
 @implementation WABouncingView
 {
+
+    
     UIView *topControlPoint;
     UIView *leftControlPoint;
     UIView *rightControlPoint;
@@ -20,6 +22,7 @@
     UIBezierPath *circleBezier;
     UIBezierPath *finalBezier;
     
+    CAShapeLayer *circleOverlayLayer;
     CAShapeLayer *circleLayer;
     CAShapeLayer *shapeLayer;
     
@@ -37,21 +40,22 @@
         self.isOpen = false;
 
         circleFrame = paramCircleMenuFrame;
-        
-        CGFloat overflow = circleFrame.size.width/2.2;
+
+        CGRect tempFrame = CGRectInset(circleFrame, 15, 15);
+        CGFloat overflow = tempFrame.size.width/2.2;
         
         circleBezier = [UIBezierPath bezierPath];
-        [circleBezier moveToPoint: CGPointMake(circleFrame.origin.x, circleFrame.origin.y)];
-        [circleBezier addQuadCurveToPoint:CGPointMake(circleFrame.origin.x + circleFrame.size.width, circleFrame.origin.y) controlPoint:CGPointMake(circleFrame.origin.x + circleFrame.size.width/2, circleFrame.origin.y - overflow)];
+        [circleBezier moveToPoint: CGPointMake(tempFrame.origin.x, tempFrame.origin.y)];
+        [circleBezier addQuadCurveToPoint:CGPointMake(tempFrame.origin.x + tempFrame.size.width, tempFrame.origin.y) controlPoint:CGPointMake(tempFrame.origin.x + tempFrame.size.width/2, tempFrame.origin.y - overflow)];
         
-        [circleBezier addQuadCurveToPoint:CGPointMake(circleFrame.origin.x + circleFrame.size.width, circleFrame.origin.y + circleFrame.size.height)
-                             controlPoint:CGPointMake(circleFrame.origin.x + circleFrame.size.width + overflow, circleFrame.origin.y + circleFrame.size.height/2)];
+        [circleBezier addQuadCurveToPoint:CGPointMake(tempFrame.origin.x + tempFrame.size.width, tempFrame.origin.y + tempFrame.size.height)
+                             controlPoint:CGPointMake(tempFrame.origin.x + tempFrame.size.width + overflow, tempFrame.origin.y + tempFrame.size.height/2)];
         
-        [circleBezier addQuadCurveToPoint:CGPointMake(circleFrame.origin.x, circleFrame.origin.y + circleFrame.size.height)
-                             controlPoint:CGPointMake(circleFrame.origin.x + circleFrame.size.width/2, circleFrame.origin.y + circleFrame.size.height + overflow)];
+        [circleBezier addQuadCurveToPoint:CGPointMake(tempFrame.origin.x, tempFrame.origin.y + tempFrame.size.height)
+                             controlPoint:CGPointMake(tempFrame.origin.x + tempFrame.size.width/2, tempFrame.origin.y + tempFrame.size.height + overflow)];
         
-        [circleBezier addQuadCurveToPoint:CGPointMake(circleFrame.origin.x, circleFrame.origin.y)
-                             controlPoint:CGPointMake(circleFrame.origin.x - overflow, circleFrame.origin.y + circleFrame.size.height/2)];
+        [circleBezier addQuadCurveToPoint:CGPointMake(tempFrame.origin.x, tempFrame.origin.y)
+                             controlPoint:CGPointMake(tempFrame.origin.x - overflow, tempFrame.origin.y + tempFrame.size.height/2)];
 
         [circleBezier closePath];
         
@@ -60,6 +64,9 @@
         circleLayer = [CAShapeLayer layer];
         circleLayer.fillColor = self.menuColor.CGColor;
         circleLayer.path = circleBezier.CGPath;
+        
+        
+
         
         [self.layer addSublayer:circleLayer];
         
@@ -85,8 +92,35 @@
         shapeLayer.opacity = 0.0;
         shapeLayer.fillColor = self.menuColor.CGColor;
         [self.layer addSublayer:shapeLayer];
+        
+        self.menuButton = [[WAMenuButton alloc] initWithFrame:circleFrame];
+        self.menuButton.buttonState = WAMenuButtonStateBurger;
+        self.menuButton.layer.zPosition = 100;
+        
+        circleOverlayLayer = [CAShapeLayer layer];
+        circleOverlayLayer.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, circleFrame.size.width, circleFrame.size.height)].CGPath;
+        circleOverlayLayer.fillColor = self.menuColor.CGColor;
+        circleOverlayLayer.zPosition = -1;
+        
+        [self.menuButton.layer addSublayer:circleOverlayLayer];
+        [self addSubview:self.menuButton];
+        
+        
+        
+        [self.menuButton addTarget:self action:@selector(handleMenuPressed:) forControlEvents:UIControlEventTouchUpInside];
+        
     }
     return self;
+}
+
+-(void)handleMenuPressed:(UIButton*)sender{
+    if(self.isOpen){
+        [self animateClose];
+    }else{
+
+        [self animateOpen];
+    }
+    
 }
 
 //////  circle to rect
@@ -94,7 +128,9 @@
 -(void)animateOpen{
     
     if(!self.isAnimating){
-
+        [self.menuButton setButtonState:WAMenuButtonStateCross animated:true];
+        circleOverlayLayer.fillColor = [UIColor colorWithWhite:0.0 alpha:0.3].CGColor;
+        
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
     animation.fromValue = (id)circleBezier.CGPath;
     animation.toValue = (id)finalBezier.CGPath;
@@ -116,7 +152,9 @@
 -(void)animateClose{
     
     if(!self.isAnimating){
-    displayLink.paused = true;
+        [self.menuButton setButtonState:WAMenuButtonStateBurger animated:true];
+        circleOverlayLayer.fillColor = self.menuColor.CGColor;
+        displayLink.paused = true;
 
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
     animation.fromValue = (id)finalBezier.CGPath;

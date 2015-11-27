@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WAMenuButton.h"
 
 @interface WABouncingView : UIView
 
 @property (nonatomic, strong) UIColor *menuColor;
 @property (nonatomic, assign) BOOL isAnimating;
 @property (nonatomic, assign) BOOL isOpen;
+@property (nonatomic, strong) WAMenuButton *menuButton;
 
 -(void)animateOpen;
 -(void)animateClose;

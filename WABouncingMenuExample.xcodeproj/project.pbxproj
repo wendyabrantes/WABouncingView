@@ -15,6 +15,7 @@
 		C547B85C1C0733C100AC70E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C547B85B1C0733C100AC70E6 /* Assets.xcassets */; };
 		C547B85F1C0733C100AC70E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C547B85D1C0733C100AC70E6 /* LaunchScreen.storyboard */; };
 		C547B8691C0733EF00AC70E6 /* WABouncingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C547B8681C0733EF00AC70E6 /* WABouncingView.m */; };
+		C56837A11C083B8D0041CFFD /* WAMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C56837A01C083B8D0041CFFD /* WAMenuButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,8 @@
 		C547B8601C0733C100AC70E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C547B8671C0733EF00AC70E6 /* WABouncingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WABouncingView.h; sourceTree = "<group>"; };
 		C547B8681C0733EF00AC70E6 /* WABouncingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WABouncingView.m; sourceTree = "<group>"; };
+		C568379F1C083B8D0041CFFD /* WAMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WAMenuButton.h; sourceTree = "<group>"; };
+		C56837A01C083B8D0041CFFD /* WAMenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WAMenuButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +106,8 @@
 			children = (
 				C547B8671C0733EF00AC70E6 /* WABouncingView.h */,
 				C547B8681C0733EF00AC70E6 /* WABouncingView.m */,
+				C568379F1C083B8D0041CFFD /* WAMenuButton.h */,
+				C56837A01C083B8D0041CFFD /* WAMenuButton.m */,
 			);
 			path = WABouncingMenu;
 			sourceTree = SOURCE_ROOT;
@@ -238,6 +243,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C547B8571C0733C100AC70E6 /* ViewController.m in Sources */,
+				C56837A11C083B8D0041CFFD /* WAMenuButton.m in Sources */,
 				C547B8541C0733C100AC70E6 /* AppDelegate.m in Sources */,
 				C547B8511C0733C100AC70E6 /* main.m in Sources */,
 				C547B8691C0733EF00AC70E6 /* WABouncingView.m in Sources */,
