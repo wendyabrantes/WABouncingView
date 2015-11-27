@@ -129,7 +129,7 @@
     
     if(!self.isAnimating){
         [self.menuButton setButtonState:WAMenuButtonStateCross animated:true];
-        circleOverlayLayer.fillColor = [UIColor colorWithWhite:0.0 alpha:0.3].CGColor;
+        circleOverlayLayer.fillColor = [UIColor colorWithWhite:0.0 alpha:0.1].CGColor;
         
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
     animation.fromValue = (id)circleBezier.CGPath;

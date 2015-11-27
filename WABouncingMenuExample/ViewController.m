@@ -24,8 +24,8 @@
     bcView = [[WABouncingView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 200, self.view.frame.size.width, 200)
                                    circleMenuFrame:CGRectMake(self.view.frame.size.width - 75,
                                                               200 - 75,
-                                                              50,
-                                                              50)];
+                                                              55,
+                                                              55)];
 
     [self.view addSubview:bcView];
 
